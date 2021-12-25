@@ -17,4 +17,5 @@
 <resources>
     <string name="app_name">BooksApi</string>
     <string name="landing_greet">Hello Reader!</string>
+    <string name="search_book">Search a book</string>
 </resources>
