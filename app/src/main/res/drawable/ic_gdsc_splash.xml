@@ -1,0 +1,34 @@
+<!--
+  ~ Copyright (C) 2021 Google Developer Student Clubs BBSBEC
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="150dp"
+    android:height="150dp"
+    android:viewportWidth="192"
+    android:viewportHeight="192">
+    <path
+        android:pathData="M46.36,96.68 L77,79A15.06,15.06 0,1 0,61.91 52.91L9,83.45Z"
+        android:fillColor="#ea4335"/>
+    <path
+        android:pathData="M69.43,142.11A15.07,15.07 0,0 0,77 114L24.07,83.45A15.06,15.06 0,0 0,9 109.54l52.9,30.54A15,15 0,0 0,69.43 142.11Z"
+        android:fillColor="#4285f4"/>
+    <path
+        android:pathData="M122.05,142.11a15,15 0,0 0,7.52 -2l52.9,-30.54L145.59,96.05 114.5,114a15.07,15.07 0,0 0,7.55 28.12Z"
+        android:fillColor="#fbbc04"/>
+    <path
+        android:pathData="M174.92,111.56a15.06,15.06 0,0 0,7.55 -28.11l-52.9,-30.54A15.06,15.06 0,0 0,114.5 79l52.9,30.54A15,15 0,0 0,174.92 111.56Z"
+        android:fillColor="#0f9d58"/>
+</vector>
