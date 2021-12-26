@@ -18,9 +18,10 @@ package com.gdsc.bbsbec.booksapi.repository
 
 import com.gdsc.bbsbec.booksapi.api.RetrofitInstance
 import com.gdsc.bbsbec.booksapi.model.Books
+import retrofit2.Response
 
 class Repository {
-    suspend fun getBooks(): Books {
+    suspend fun getBooks(): Response<Books> {
         return RetrofitInstance.api.getBooks()
     }
 }

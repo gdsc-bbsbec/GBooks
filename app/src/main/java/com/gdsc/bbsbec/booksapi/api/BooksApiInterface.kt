@@ -17,10 +17,11 @@
 package com.gdsc.bbsbec.booksapi.api
 
 import com.gdsc.bbsbec.booksapi.model.Books
+import retrofit2.Response
 import retrofit2.http.GET
 
 interface BooksApiInterface {
 
     @GET("?q=ethical+hacking")
-    suspend fun getBooks(): Books
+    suspend fun getBooks(): Response<Books>
 }

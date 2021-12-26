@@ -22,16 +22,16 @@ import androidx.lifecycle.viewModelScope
 import com.gdsc.bbsbec.booksapi.model.Books
 import com.gdsc.bbsbec.booksapi.repository.Repository
 import kotlinx.coroutines.launch
+import retrofit2.Response
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
-    val myResponse: MutableLiveData<Books> = MutableLiveData()
+    val myResponse: MutableLiveData<Response<Books>> = MutableLiveData()
 
     fun getBooks() {
         viewModelScope.launch {
-            val response: Books = repository.getBooks()
+            val response: Response<Books> = repository.getBooks()
             myResponse.value = response
         }
     }
-
 }

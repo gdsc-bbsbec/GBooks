@@ -18,27 +18,33 @@ package com.gdsc.bbsbec.booksapi
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils.indexOf
 import android.util.Log
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.gdsc.bbsbec.booksapi.databinding.ActivityMainBinding
 import com.gdsc.bbsbec.booksapi.repository.Repository
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var viewModel: MainViewModel
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         viewModel.getBooks()
         viewModel.myResponse.observe(this, Observer { response ->
-            Log.d("Response", response.totalItems.toString())
-            Log.d("Response", response.items[1].volumeInfo.title)
+            if (response.isSuccessful) {
+                binding.textView.text = response.body()!!.items[1].volumeInfo.title
+            } else {
+                Log.d("Response", response.errorBody().toString())
+            }
         })
     }
 }
