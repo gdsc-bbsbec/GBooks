@@ -14,29 +14,13 @@
  * limitations under the License.
  */
 
-package com.gdsc.bbsbec.booksapi.network
+package com.gdsc.bbsbec.booksapi.api
 
-import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
+import com.gdsc.bbsbec.booksapi.model.Books
 import retrofit2.http.GET
 
-private const val BASE_URL = "https://www.googleapis.com/books/v1/volumes/"
+interface BooksApiInterface {
 
-private var inTitle: String = "Ethical Hacking".replace(" ", "+").lowercase()
-private val query = "?q=$inTitle:"
-
-private val retrofit = Retrofit.Builder()
-    .addConverterFactory(ScalarsConverterFactory.create())
-    .baseUrl(BASE_URL)
-    .build()
-
-interface BooksApiService {
     @GET("?q=ethical+hacking")
-    suspend fun getBooks(): String
-}
-
-object BooksApi {
-    val retrofitService: BooksApiService by lazy {
-        retrofit.create(BooksApiService::class.java)
-    }
+    suspend fun getBooks(): Books
 }
