@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.gdsc.bbsbec.booksapi.utils
+package com.gdsc.bbsbec.booksapi.model
 
-class Constants {
-    companion object {
-        const val BASE_URL = "https://www.googleapis.com/books/v1/volumes/"
+import com.google.gson.annotations.SerializedName
 
-        // Generate one Google API after enabling Google Books API from below
-        // https://console.cloud.google.com/marketplace/product/google/books.googleapis.com
-        const val API_KEY = "Google API Key"
-    }
-}
+
+data class ReadingModes(
+
+    @SerializedName("text") var text: Boolean? = null,
+    @SerializedName("image") var image: Boolean? = null
+
+)

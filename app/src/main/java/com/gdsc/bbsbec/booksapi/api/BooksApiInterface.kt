@@ -17,11 +17,17 @@
 package com.gdsc.bbsbec.booksapi.api
 
 import com.gdsc.bbsbec.booksapi.model.Books
+import com.gdsc.bbsbec.booksapi.model.SearchResultWrapper
+import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface BooksApiInterface {
 
-    @GET("?q=ethical+hacking")
-    suspend fun getBooks(): Response<Books>
+    @GET(" ")
+    suspend fun getBooks(
+        @Query("q") inTitle: String,
+        @Query("key") apiKey: String
+    ): Response<Books>
 }

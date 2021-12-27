@@ -23,6 +23,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gdsc.bbsbec.booksapi.databinding.ActivityMainBinding
 import com.gdsc.bbsbec.booksapi.repository.Repository
+import com.gdsc.bbsbec.booksapi.utils.Constants.Companion.API_KEY
 
 class MainActivity : AppCompatActivity() {
 
@@ -31,20 +32,40 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
-        viewModel.getBooks()
-        viewModel.myResponse.observe(this, Observer { response ->
-            if (response.isSuccessful) {
-                binding.textView.text = response.body()!!.items[1].volumeInfo.title
-            } else {
-                Log.d("Response", response.errorBody().toString())
-            }
-        })
+
+        binding.getButton.setOnClickListener {
+            val title: String = binding.editText.text.toString()
+            viewModel.getBooks(title, API_KEY)
+            viewModel.myResponse.observe(this, Observer { response ->
+                if (response.isSuccessful) {
+                    Log.d("Response", response.body().toString())
+                    response.body()!!.items.forEach() {
+/*                    Log.d(
+                        "Response",
+                        response.body()!!.items[1].saleInfo!!.listPrice!!.amount.toString()
+                    */
+                        Log.d("Response", it.volumeInfo!!.title.toString())
+                        Log.d("Response", it.volumeInfo!!.subtitle.toString())
+                        Log.d("Response", it.volumeInfo!!.publisher.toString())
+                        Log.d("Response", it.volumeInfo!!.publishedDate.toString())
+                        Log.d("Response", it.saleInfo!!.listPrice!!.amount.toString())
+                        Log.d(
+                            "Response",
+                            it.saleInfo!!.listPrice!!.currencyCode.toString()
+                        )
+                        Log.d("Response", "----------------------------")
+                    }
+                } else {
+                    Log.d("Response", response.errorBody().toString())
+                }
+            })
+        }
     }
 }

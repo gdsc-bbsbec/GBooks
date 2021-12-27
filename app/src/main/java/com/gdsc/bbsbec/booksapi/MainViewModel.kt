@@ -16,21 +16,25 @@
 
 package com.gdsc.bbsbec.booksapi
 
+import android.icu.text.CaseMap
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.gdsc.bbsbec.booksapi.model.Books
+import com.gdsc.bbsbec.booksapi.model.SearchResultWrapper
 import com.gdsc.bbsbec.booksapi.repository.Repository
+import com.gdsc.bbsbec.booksapi.utils.Constants.Companion.API_KEY
 import kotlinx.coroutines.launch
+import retrofit2.Call
 import retrofit2.Response
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
     val myResponse: MutableLiveData<Response<Books>> = MutableLiveData()
 
-    fun getBooks() {
+    fun getBooks(title: String, apiKey: String) {
         viewModelScope.launch {
-            val response: Response<Books> = repository.getBooks()
+            val response: Response<Books> = repository.getBooks(title, apiKey)
             myResponse.value = response
         }
     }
