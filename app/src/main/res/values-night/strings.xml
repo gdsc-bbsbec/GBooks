@@ -16,4 +16,8 @@
 
 <resources>
     <string name="search_book">Search a book</string>
+    <string name="book_title_hint">Book title</string>
+    <string name="book_preview_link">Books Preview Link: %s</string>
+
+
 </resources>

@@ -14,16 +14,24 @@
  * limitations under the License.
  */
 
-package com.gdsc.bbsbec.booksapi
+package com.gdsc.bbsbec.booksapi.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
+import com.gdsc.bbsbec.booksapi.model.Books
 import com.gdsc.bbsbec.booksapi.repository.Repository
+import kotlinx.coroutines.launch
+import retrofit2.Response
 
-class MainViewModelFactory(
-    private val repository: Repository
-) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainViewModel(repository) as T
+class MainViewModel(private val repository: Repository) : ViewModel() {
+
+    val myResponse: MutableLiveData<Response<Books>> = MutableLiveData()
+
+    fun getBooks(title: String, apiKey: String) {
+        viewModelScope.launch {
+            val response: Response<Books> = repository.getBooks(title, apiKey)
+            myResponse.value = response
+        }
     }
 }
