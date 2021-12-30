@@ -16,6 +16,7 @@
 
 package com.gdsc.bbsbec.booksapi.activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -56,5 +57,11 @@ class BookSearchResultRecyclerView : AppCompatActivity() {
         binding.bookSearchResultRecyclerView.adapter = bookSearchResultAdapter
         binding.bookSearchResultRecyclerView.layoutManager = LinearLayoutManager(this)
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
     }
 }

@@ -80,6 +80,7 @@ class MainActivity : AppCompatActivity() {
                     intent.putExtra("bookThumbnail", bookThumbnail)
 
                     startActivity(intent)
+                    finish()
                 } else {
                     Log.d("Response", response.errorBody().toString())
                 }
