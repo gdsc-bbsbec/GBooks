@@ -16,6 +16,9 @@
 
 <resources>
     <string name="app_name">BooksApi</string>
-    <string name="landing_greet">Hello Reader!</string>
     <string name="search_book">Search a book</string>
+    <string name="error">oop\'s Something went wrong</string>
+    <string name="search_book_here">Search book here</string>
+    <string name="search_book_button">Search Book</string>
+    <string name="welcome_message">Welcome🙂</string>
 </resources>
