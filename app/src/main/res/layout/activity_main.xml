@@ -27,10 +27,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:importantForAccessibility="no"
+        android:src="@drawable/ic_search"
         app:layout_constraintBottom_toBottomOf="@+id/search_book_text_input"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/search_book_text_input"
-        android:src="@drawable/ic_search" />
+        app:layout_constraintTop_toTopOf="@+id/search_book_text_input" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/search_book_text_input"

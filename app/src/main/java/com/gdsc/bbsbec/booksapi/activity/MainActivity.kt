@@ -16,13 +16,58 @@
 
 package com.gdsc.bbsbec.booksapi.activity
 
-import android.os.Bundle
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
-import com.gdsc.bbsbec.booksapi.R
+import android.os.Bundle
+import android.util.Log
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.gdsc.bbsbec.booksapi.viewmodel.MainViewModel
+import com.gdsc.bbsbec.booksapi.viewmodel.MainViewModelFactory
+import com.gdsc.bbsbec.booksapi.databinding.ActivityMainBinding
+import com.gdsc.bbsbec.booksapi.repository.Repository
+import com.gdsc.bbsbec.booksapi.utils.Constants.Companion.API_KEY
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var viewModel: MainViewModel
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        val bookName = ArrayList<String>()
+        val bookPublisher = ArrayList<String>()
+        val bookSmallThumbnail = ArrayList<String>()
+
+        val repository = Repository()
+        val viewModelFactory = MainViewModelFactory(repository)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
+
+        binding.searchButton.setOnClickListener {
+            val title: String = binding.searchBookTextInput.editText?.text.toString()
+            viewModel.getBooks(title, API_KEY)
+            viewModel.myResponse.observe(this, Observer { response ->
+                if (response.isSuccessful) {
+                    val intent = Intent(this, BookSearchResultRecyclerView::class.java)
+
+                    response.body()!!.items.forEach {
+                        bookName.add(it.volumeInfo!!.title.toString())
+                        bookPublisher.add(it.volumeInfo!!.publisher.toString())
+                        bookSmallThumbnail.add(it.volumeInfo!!.imageLinks!!.smallThumbnail.toString())
+                    }
+                    intent.putExtra("bookName", bookName)
+                    intent.putExtra("publisher", bookPublisher)
+                    intent.putExtra("bookSmallThumbnail", bookSmallThumbnail)
+
+                    startActivity(intent)
+                    finish()
+                } else {
+                    Log.d("Response", response.errorBody().toString())
+                }
+            })
+        }
     }
 }

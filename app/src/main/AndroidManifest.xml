@@ -18,13 +18,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gdsc.bbsbec.booksapi">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BooksApi">
+        android:theme="@style/Theme.BooksApi"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.BookSearchResultRecyclerView"
+            android:exported="true" />
         <activity
             android:name=".activity.SplashActivity"
             android:exported="true">
