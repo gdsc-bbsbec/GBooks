@@ -16,8 +16,9 @@
 
 <resources>
     <string name="app_name">BooksApi</string>
-    <string name="landing_greet">Hello Reader!</string>
     <string name="splash_desc">GDSC Logo for splash screen</string>
     <string name="gdsc">Google Developer Student Clubs</string>
     <string name="bbsbec">Baba Banda Singh Bahadur Engineering College</string>
+    <string name="search_book">Enter book title</string>
+    <string name="search_book_button">Search</string>
 </resources>
