@@ -17,26 +17,26 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_result"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/book_thumbnail"
+        android:id="@+id/book_small_thumbnail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
+        android:src="@drawable/ic_default_book"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_schedule" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/book_name_text_view"
         android:layout_width="200dp"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         android:layout_marginStart="18dp"
         android:layout_marginTop="18dp"
-        app:layout_constraintStart_toEndOf="@id/book_thumbnail"
+        app:layout_constraintStart_toEndOf="@id/book_small_thumbnail"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteY="74dp" />
 
@@ -46,7 +46,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginTop="18dp"
-        app:layout_constraintStart_toEndOf="@id/book_thumbnail"
+        app:layout_constraintStart_toEndOf="@id/book_small_thumbnail"
         app:layout_constraintTop_toBottomOf="@id/book_name_text_view"
         tools:layout_editor_absoluteY="74dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
