@@ -17,15 +17,16 @@
 package com.gdsc.bbsbec.booksapi.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.gdsc.bbsbec.booksapi.databinding.ActivityBookSearchResultBinding
 import com.gdsc.bbsbec.booksapi.model.BookSearchResultData
 
-class BookSearchResultAdapter(private val data: ArrayList<BookSearchResultData>) :
+class BookSearchResultAdapter(
+    private val data: ArrayList<BookSearchResultData>,
+    private val onClick: (BookSearchResultData) -> Unit
+) :
     RecyclerView.Adapter<BookSearchResultAdapter.BookSearchResultViewHolder>() {
 
     inner class BookSearchResultViewHolder(private val item: ActivityBookSearchResultBinding) :
@@ -34,7 +35,12 @@ class BookSearchResultAdapter(private val data: ArrayList<BookSearchResultData>)
             // Attach data to item
             item.bookNameTextView.text = bookSearchResultData.title
             item.publisherNameTextView.text = bookSearchResultData.publisher
-            item.bookThumbnail.load(bookSearchResultData.bookThumbnail)
+            item.bookSmallThumbnail.load(bookSearchResultData.bookSmallThumbnail)
+            item.searchResult.apply {
+                setOnClickListener {
+                    onClick(bookSearchResultData)
+                }
+            }
         }
     }
 

@@ -29,6 +29,9 @@
         android:theme="@style/Theme.BooksApi"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.BookDetailsActivity"
+            android:exported="true" />
+        <activity
             android:name=".activity.BookSearchResultRecyclerView"
             android:exported="true" />
         <activity

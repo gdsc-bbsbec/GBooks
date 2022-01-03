@@ -17,7 +17,10 @@
 package com.gdsc.bbsbec.booksapi.model
 
 data class BookSearchResultData(
-    val bookThumbnail: String?,
+    val bookSmallThumbnail: String?,
     val title: String,
-    val publisher: String?
+    val publisher: String?,
+    val bookDescription: String?,
+    val previewLink: String?,
+    val bookThumbnail: String?,
 )

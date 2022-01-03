@@ -42,6 +42,10 @@ class MainActivity : AppCompatActivity() {
         val bookPublisher = ArrayList<String>()
         val bookSmallThumbnail = ArrayList<String>()
 
+        val bookThumbnail = ArrayList<String>()
+        val bookDescription = ArrayList<String>()
+        val previewLink = ArrayList<String>()
+
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
@@ -57,10 +61,16 @@ class MainActivity : AppCompatActivity() {
                         bookName.add(it.volumeInfo!!.title.toString())
                         bookPublisher.add(it.volumeInfo!!.publisher.toString())
                         bookSmallThumbnail.add(it.volumeInfo!!.imageLinks!!.smallThumbnail.toString())
+                        bookThumbnail.add(it.volumeInfo!!.imageLinks!!.thumbnail.toString())
+                        bookDescription.add(it.volumeInfo!!.description.toString())
+                        previewLink.add(it.volumeInfo!!.previewLink.toString())
                     }
                     intent.putExtra("bookName", bookName)
                     intent.putExtra("publisher", bookPublisher)
                     intent.putExtra("bookSmallThumbnail", bookSmallThumbnail)
+                    intent.putExtra("bookThumbnail", bookThumbnail)
+                    intent.putExtra("bookDescription", bookDescription)
+                    intent.putExtra("previewLink", previewLink)
 
                     startActivity(intent)
                     finish()

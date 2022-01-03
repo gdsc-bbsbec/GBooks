@@ -19,6 +19,7 @@ package com.gdsc.bbsbec.booksapi.activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gdsc.bbsbec.booksapi.adapter.BookSearchResultAdapter
 import com.gdsc.bbsbec.booksapi.databinding.ActivityBookSearchResultRecyclerViewBinding
@@ -40,6 +41,12 @@ class BookSearchResultRecyclerView : AppCompatActivity() {
             intent.getStringArrayListExtra("publisher") as ArrayList<String>
         val bookSmallThumbnail: ArrayList<String> =
             intent.getStringArrayListExtra("bookSmallThumbnail") as ArrayList<String>
+        val bookThumbnail: ArrayList<String> =
+            intent.getStringArrayListExtra("bookThumbnail") as ArrayList<String>
+        val bookDescription: ArrayList<String> =
+            intent.getStringArrayListExtra("bookDescription") as ArrayList<String>
+        val previewLink: ArrayList<String> =
+            intent.getStringArrayListExtra("previewLink") as ArrayList<String>
 
         val data = arrayListOf<BookSearchResultData>()
         repeat(bookName.size - 1) {
@@ -47,13 +54,25 @@ class BookSearchResultRecyclerView : AppCompatActivity() {
                 BookSearchResultData(
                     bookSmallThumbnail[pass],
                     bookName[pass],
-                    bookPublisher[pass]
+                    bookPublisher[pass],
+                    bookDescription[pass],
+                    previewLink[pass],
+                    bookThumbnail[pass],
                 )
             )
             pass += 1
         }
 
-        val bookSearchResultAdapter = BookSearchResultAdapter(data)
+
+        val bookSearchResultAdapter = BookSearchResultAdapter(data) {
+            val intent = Intent(this, BookDetailsActivity::class.java)
+            intent.putExtra("bookName", it.title)
+            intent.putExtra("bookPublisher", it.publisher)
+            intent.putExtra("bookDescription", it.bookDescription)
+            intent.putExtra("previewLink", it.previewLink)
+            intent.putExtra("bookThumbnail", it.bookThumbnail)
+            startActivity(intent)
+        }
         binding.bookSearchResultRecyclerView.adapter = bookSearchResultAdapter
         binding.bookSearchResultRecyclerView.layoutManager = LinearLayoutManager(this)
     }
@@ -62,5 +81,6 @@ class BookSearchResultRecyclerView : AppCompatActivity() {
         super.onDestroy()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
+        finish()
     }
 }
