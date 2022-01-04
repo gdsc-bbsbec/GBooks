@@ -70,4 +70,15 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_button" />
 
+    <TextView
+        android:id="@+id/quote"
+        android:layout_width="326dp"
+        android:layout_height="294dp"
+        android:layout_marginBottom="24dp"
+        android:fontFamily="@font/product_sans_italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

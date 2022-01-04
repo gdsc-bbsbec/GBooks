@@ -50,6 +50,7 @@ class MainActivity : AppCompatActivity() {
         val viewModelFactory = MainViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
 
+        binding.quote.text = allQuotesList.random()
         binding.searchButton.setOnClickListener {
             val title: String = binding.searchBookTextInput.editText?.text.toString()
             viewModel.getBooks(title, API_KEY)
