@@ -79,5 +79,10 @@ class MainActivity : AppCompatActivity() {
                 }
             })
         }
+
+        binding.wishlistButton.setOnClickListener {
+            val intent = Intent(this, BookWishlistRecyclerView::class.java)
+            startActivity(intent)
+        }
     }
 }

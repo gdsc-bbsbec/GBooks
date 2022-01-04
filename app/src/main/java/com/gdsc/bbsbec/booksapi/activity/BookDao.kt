@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Google Developer Student Clubs BBSBEC
+ * Copyright (C) 2022 Google Developer Student Clubs BBSBEC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,21 @@
  * limitations under the License.
  */
 
-package com.gdsc.bbsbec.booksapi.model
+package com.gdsc.bbsbec.booksapi.activity
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.lifecycle.LiveData
+import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
+import androidx.room.Query
+import com.gdsc.bbsbec.booksapi.model.BookSearchResultData
 
-@Entity(tableName = "book_data")
-data class BookSearchResultData(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
-    val bookSmallThumbnail: String?,
-    val title: String,
-    val publisher: String?,
-    val bookDescription: String?,
-    val previewLink: String?,
-    val bookThumbnail: String?,
-)
+@Dao
+interface BookDao {
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addBook(books: BookSearchResultData)
+
+    @Query("SELECT * FROM book_data ORDER BY id ASC")
+    fun readAllData(): LiveData<List<BookSearchResultData>>
+}

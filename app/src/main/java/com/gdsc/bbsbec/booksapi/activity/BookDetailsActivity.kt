@@ -20,13 +20,18 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.widget.Toast
+import androidx.lifecycle.ViewModelProvider
 import coil.load
+import com.gdsc.bbsbec.booksapi.R
 import com.gdsc.bbsbec.booksapi.databinding.ActivityBookDetailsBinding
+import com.gdsc.bbsbec.booksapi.model.BookSearchResultData
+import com.gdsc.bbsbec.booksapi.viewmodel.BookDataViewModel
 
 class BookDetailsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityBookDetailsBinding
+    private lateinit var mBookDataViewModel: BookDataViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,10 +49,34 @@ class BookDetailsActivity : AppCompatActivity() {
         binding.bookDescription.text = bookDescription
         binding.bookThumbnail.load(bookThumbnail)
 
+        mBookDataViewModel = ViewModelProvider(this).get(BookDataViewModel::class.java)
+
         binding.previewButton.setOnClickListener {
             val intent = Intent(Intent.ACTION_VIEW)
             intent.data = Uri.parse(previewLink)
             startActivity(intent)
+        }
+
+        binding.wishlistImageButton.setOnClickListener {
+            if (!binding.wishlistImageButton.equals(R.drawable.ic_filled_star)) {
+                binding.wishlistImageButton.setImageResource(R.drawable.ic_filled_star)
+
+                val book = BookSearchResultData(
+                    0,
+                    bookThumbnail,
+                    bookName,
+                    bookPublisher,
+                    bookDescription,
+                    previewLink,
+                    bookThumbnail
+                )
+                mBookDataViewModel.addBook(book)
+                Toast.makeText(applicationContext, "Book added to wishlist", Toast.LENGTH_LONG)
+                    .show()
+            } else {
+                Toast.makeText(applicationContext, "Book removed from wishlist", Toast.LENGTH_LONG)
+                    .show()
+            }
         }
     }
 }

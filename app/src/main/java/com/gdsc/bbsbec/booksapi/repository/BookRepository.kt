@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Google Developer Student Clubs BBSBEC
+ * Copyright (C) 2022 Google Developer Student Clubs BBSBEC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package com.gdsc.bbsbec.booksapi.model
+package com.gdsc.bbsbec.booksapi.repository
 
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.lifecycle.LiveData
+import com.gdsc.bbsbec.booksapi.activity.BookDao
+import com.gdsc.bbsbec.booksapi.model.BookSearchResultData
 
-@Entity(tableName = "book_data")
-data class BookSearchResultData(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
-    val bookSmallThumbnail: String?,
-    val title: String,
-    val publisher: String?,
-    val bookDescription: String?,
-    val previewLink: String?,
-    val bookThumbnail: String?,
-)
+class BookRepository(private val bookDao: BookDao) {
+
+    val readAllData: LiveData<List<BookSearchResultData>> = bookDao.readAllData()
+
+    suspend fun addBook(book: BookSearchResultData) {
+        bookDao.addBook(book)
+    }
+}

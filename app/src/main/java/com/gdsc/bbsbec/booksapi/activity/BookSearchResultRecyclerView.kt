@@ -52,6 +52,7 @@ class BookSearchResultRecyclerView : AppCompatActivity() {
         repeat(bookName.size - 1) {
             data.add(
                 BookSearchResultData(
+                    pass,
                     bookSmallThumbnail[pass],
                     bookName[pass],
                     bookPublisher[pass],

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright (C) 2021 Google Developer Student Clubs BBSBEC
+  ~ Copyright (C) 2022 Google Developer Student Clubs BBSBEC
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -28,6 +28,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BooksApi"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".activity.BookWishlistRecyclerView"
+            android:exported="true" />
         <activity
             android:name=".activity.BookDetailsActivity"
             android:exported="true" />
