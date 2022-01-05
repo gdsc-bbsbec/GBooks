@@ -20,6 +20,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gdsc.bbsbec.booksapi.viewmodel.MainViewModel
@@ -53,32 +54,42 @@ class MainActivity : AppCompatActivity() {
         binding.quote.text = allQuotesList.random()
         binding.searchButton.setOnClickListener {
             val title: String = binding.searchBookTextInput.editText?.text.toString()
-            viewModel.getBooks(title, API_KEY)
-            viewModel.myResponse.observe(this, Observer { response ->
-                if (response.isSuccessful) {
-                    val intent = Intent(this, BookSearchResultRecyclerView::class.java)
+            if (title.isNotEmpty()) {
+                Toast.makeText(
+                    applicationContext,
+                    "Searching books having $title in name.",
+                    Toast.LENGTH_LONG
+                ).show()
 
-                    response.body()!!.items.forEach {
-                        bookName.add(it.volumeInfo!!.title.toString())
-                        bookPublisher.add(it.volumeInfo!!.publisher.toString())
-                        bookSmallThumbnail.add(it.volumeInfo!!.imageLinks!!.smallThumbnail.toString())
-                        bookThumbnail.add(it.volumeInfo!!.imageLinks!!.thumbnail.toString())
-                        bookDescription.add(it.volumeInfo!!.description.toString())
-                        previewLink.add(it.volumeInfo!!.previewLink.toString())
+                viewModel.getBooks(title, API_KEY)
+                viewModel.myResponse.observe(this, Observer { response ->
+                    if (response.isSuccessful) {
+                        response.body()!!.items.forEach {
+                            bookName.add(it.volumeInfo!!.title.toString())
+                            bookPublisher.add(it.volumeInfo!!.publisher.toString())
+                            bookSmallThumbnail.add(it.volumeInfo!!.imageLinks!!.smallThumbnail.toString())
+                            bookThumbnail.add(it.volumeInfo!!.imageLinks!!.thumbnail.toString())
+                            bookDescription.add(it.volumeInfo!!.description.toString())
+                            previewLink.add(it.volumeInfo!!.previewLink.toString())
+                        }
+                        val intent = Intent(this, BookSearchResultRecyclerView::class.java)
+                        intent.putExtra("bookName", bookName)
+                        intent.putExtra("publisher", bookPublisher)
+                        intent.putExtra("bookSmallThumbnail", bookSmallThumbnail)
+                        intent.putExtra("bookThumbnail", bookThumbnail)
+                        intent.putExtra("bookDescription", bookDescription)
+                        intent.putExtra("previewLink", previewLink)
+
+                        startActivity(intent)
+                        finish()
+                    } else {
+                        Log.d("Response", response.errorBody().toString())
                     }
-                    intent.putExtra("bookName", bookName)
-                    intent.putExtra("publisher", bookPublisher)
-                    intent.putExtra("bookSmallThumbnail", bookSmallThumbnail)
-                    intent.putExtra("bookThumbnail", bookThumbnail)
-                    intent.putExtra("bookDescription", bookDescription)
-                    intent.putExtra("previewLink", previewLink)
-
-                    startActivity(intent)
-                    finish()
-                } else {
-                    Log.d("Response", response.errorBody().toString())
-                }
-            })
+                })
+            } else {
+                Toast.makeText(applicationContext, "Title can not be empty", Toast.LENGTH_LONG)
+                    .show()
+            }
         }
 
         binding.wishlistButton.setOnClickListener {
