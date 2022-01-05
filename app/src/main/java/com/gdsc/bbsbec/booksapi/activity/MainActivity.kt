@@ -17,17 +17,19 @@
 package com.gdsc.bbsbec.booksapi.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.gdsc.bbsbec.booksapi.viewmodel.MainViewModel
-import com.gdsc.bbsbec.booksapi.viewmodel.MainViewModelFactory
 import com.gdsc.bbsbec.booksapi.databinding.ActivityMainBinding
 import com.gdsc.bbsbec.booksapi.repository.Repository
 import com.gdsc.bbsbec.booksapi.utils.Constants.Companion.API_KEY
+import com.gdsc.bbsbec.booksapi.viewmodel.MainViewModel
+import com.gdsc.bbsbec.booksapi.viewmodel.MainViewModelFactory
+import java.util.*
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -57,7 +59,11 @@ class MainActivity : AppCompatActivity() {
             if (title.isNotEmpty()) {
                 Toast.makeText(
                     applicationContext,
-                    "Searching books having $title in name.",
+                    "Searching books having \"${
+                        title.replaceFirstChar {
+                            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+                        }
+                    }\" in name.",
                     Toast.LENGTH_LONG
                 ).show()
 
