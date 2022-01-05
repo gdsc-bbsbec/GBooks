@@ -21,7 +21,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.gdsc.bbsbec.booksapi.databinding.ActivityMainBinding
 import com.gdsc.bbsbec.booksapi.repository.Repository
@@ -29,7 +28,7 @@ import com.gdsc.bbsbec.booksapi.utils.Constants.Companion.API_KEY
 import com.gdsc.bbsbec.booksapi.viewmodel.MainViewModel
 import com.gdsc.bbsbec.booksapi.viewmodel.MainViewModelFactory
 import java.util.*
-
+import kotlin.collections.ArrayList
 
 class MainActivity : AppCompatActivity() {
 
@@ -68,7 +67,7 @@ class MainActivity : AppCompatActivity() {
                 ).show()
 
                 viewModel.getBooks(title, API_KEY)
-                viewModel.myResponse.observe(this, Observer { response ->
+                viewModel.myResponse.observe(this, { response ->
                     if (response.isSuccessful) {
                         response.body()!!.items.forEach {
                             bookName.add(it.volumeInfo!!.title.toString())
