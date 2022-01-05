@@ -78,8 +78,8 @@ class BookSearchResultRecyclerView : AppCompatActivity() {
         binding.bookSearchResultRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onBackPressed() {
+        super.onBackPressed()
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
