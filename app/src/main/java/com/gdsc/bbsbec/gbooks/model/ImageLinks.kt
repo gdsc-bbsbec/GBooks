@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
-    }
-}
-rootProject.name = "G-Books"
-include ':app'
+package com.gdsc.bbsbec.gbooks.model
+
+import com.google.gson.annotations.SerializedName
+
+
+data class ImageLinks(
+
+    @SerializedName("smallThumbnail") var smallThumbnail: String? = null,
+    @SerializedName("thumbnail") var thumbnail: String? = null
+
+)

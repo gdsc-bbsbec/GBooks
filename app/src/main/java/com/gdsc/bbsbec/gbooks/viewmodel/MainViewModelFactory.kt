@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
+package com.gdsc.bbsbec.gbooks.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.gdsc.bbsbec.gbooks.repository.Repository
+
+class MainViewModelFactory(
+    private val repository: Repository
+) : ViewModelProvider.Factory {
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return MainViewModel(repository) as T
     }
 }
-rootProject.name = "G-Books"
-include ':app'

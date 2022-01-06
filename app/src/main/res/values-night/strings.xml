@@ -15,7 +15,7 @@
   -->
 
 <resources>
-    <string name="app_name">Books Api</string>
+    <string name="app_name">G-Books</string>
     <string name="splash_desc">GDSC Logo for splash screen</string>
     <string name="gdsc">Google Developer Student Clubs</string>
     <string name="bbsbec">Baba Banda Singh Bahadur Engineering College</string>

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2021 Google Developer Student Clubs BBSBEC
+ * Copyright (C) 2022 Google Developer Student Clubs BBSBEC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,13 +14,21 @@
  * limitations under the License.
  */
 
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
-    }
+package com.gdsc.bbsbec.gbooks.activity
+
+import androidx.lifecycle.LiveData
+import androidx.room.*
+import com.gdsc.bbsbec.gbooks.model.BookSearchResultData
+
+@Dao
+interface BookDao {
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    suspend fun addBook(books: BookSearchResultData)
+
+    @Query("SELECT * FROM book_data ORDER BY id ASC")
+    fun readAllData(): LiveData<List<BookSearchResultData>>
+
+    @Delete
+    suspend fun deleteBook(book: BookSearchResultData)
 }
-rootProject.name = "G-Books"
-include ':app'

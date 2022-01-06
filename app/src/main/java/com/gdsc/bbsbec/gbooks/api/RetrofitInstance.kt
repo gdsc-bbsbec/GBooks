@@ -14,13 +14,23 @@
  * limitations under the License.
  */
 
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
+package com.gdsc.bbsbec.gbooks.api
+
+import com.gdsc.bbsbec.gbooks.utils.Constants.Companion.BASE_URL
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
+object RetrofitInstance {
+
+    private val retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
     }
+
+    val api: BooksApiInterface by lazy {
+        retrofit.create(BooksApiInterface::class.java)
+    }
+
 }
-rootProject.name = "G-Books"
-include ':app'

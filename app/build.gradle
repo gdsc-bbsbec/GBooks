@@ -26,7 +26,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.gdsc.bbsbec.booksapi"
+        applicationId "com.gdsc.bbsbec.gbooks"
         minSdk 19
         targetSdk 31
         versionCode 1

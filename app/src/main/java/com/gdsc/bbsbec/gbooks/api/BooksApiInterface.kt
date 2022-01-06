@@ -14,13 +14,18 @@
  * limitations under the License.
  */
 
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        jcenter() // Warning: this repository is going to shut down soon
-    }
+package com.gdsc.bbsbec.gbooks.api
+
+import com.gdsc.bbsbec.gbooks.model.Books
+import retrofit2.Response
+import retrofit2.http.GET
+import retrofit2.http.Query
+
+interface BooksApiInterface {
+
+    @GET(" ")
+    suspend fun getBooks(
+        @Query("q") inTitle: String,
+        @Query("key") apiKey: String
+    ): Response<Books>
 }
-rootProject.name = "G-Books"
-include ':app'
