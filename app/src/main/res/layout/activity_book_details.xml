@@ -27,7 +27,7 @@
 
         <TextView
             android:id="@+id/book_name"
-            android:layout_width="103dp"
+            android:layout_width="wrap_content"
             android:layout_height="41dp"
             android:layout_marginStart="32dp"
             android:layout_marginTop="20dp"
@@ -36,8 +36,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
-            android:id="@+id/wishlist_image_button"
+        <ImageView
+            android:id="@+id/wishlist_image_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -45,6 +45,7 @@
             android:src="@drawable/ic_empty_star"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
 
         <ImageView
             android:id="@+id/book_thumbnail"
@@ -73,7 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="152dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="36dp"
             android:text="@string/preview_book"
             android:textAllCaps="false"
             app:layout_constraintStart_toEndOf="@id/publisher_name_text_view"
