@@ -16,7 +16,11 @@
 
 package com.gdsc.bbsbec.gbooks.activity
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkCapabilities
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -55,47 +59,52 @@ class MainActivity : AppCompatActivity() {
 
         binding.quote.text = allQuotesList.random()
         binding.searchButton.setOnClickListener {
-            val title: String = binding.searchBookTextInput.editText?.text.toString()
-            if (title.isNotEmpty()) {
-                Toast.makeText(
-                    applicationContext,
-                    "Searching books having \"${
-                        title.replaceFirstChar {
-                            if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
-                        }
-                    }\" in name.",
-                    Toast.LENGTH_LONG
-                ).show()
+            if (checkInternet(this)) {
+                val title: String = binding.searchBookTextInput.editText?.text.toString()
+                if (title.isNotEmpty()) {
+                    Toast.makeText(
+                        applicationContext,
+                        "Searching books having \"${
+                            title.replaceFirstChar {
+                                if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString()
+                            }
+                        }\" in name.",
+                        Toast.LENGTH_LONG
+                    ).show()
 
-                viewModel.getBooks(title, API_KEY)
-                viewModel.myResponse.observe(this, { response ->
-                    if (response.isSuccessful) {
-                        response.body()!!.items.forEach {
-                            id.add(it.id.toString())
-                            bookName.add(it.volumeInfo!!.title.toString())
-                            bookPublisher.add(it.volumeInfo!!.publisher.toString())
-                            bookSmallThumbnail.add(it.volumeInfo!!.imageLinks!!.smallThumbnail.toString())
-                            bookThumbnail.add(it.volumeInfo!!.imageLinks!!.thumbnail.toString())
-                            bookDescription.add(it.volumeInfo!!.description.toString())
-                            previewLink.add(it.volumeInfo!!.previewLink.toString())
-                        }
-                        val intent = Intent(this, BookSearchResultRecyclerView::class.java)
-                        intent.putExtra("id", id)
-                        intent.putExtra("bookName", bookName)
-                        intent.putExtra("publisher", bookPublisher)
-                        intent.putExtra("bookSmallThumbnail", bookSmallThumbnail)
-                        intent.putExtra("bookThumbnail", bookThumbnail)
-                        intent.putExtra("bookDescription", bookDescription)
-                        intent.putExtra("previewLink", previewLink)
+                    viewModel.getBooks(title, API_KEY)
+                    viewModel.myResponse.observe(this, { response ->
+                        if (response.isSuccessful) {
+                            response.body()!!.items.forEach {
+                                id.add(it.id.toString())
+                                bookName.add(it.volumeInfo!!.title.toString())
+                                bookPublisher.add(it.volumeInfo!!.publisher.toString())
+                                bookSmallThumbnail.add(it.volumeInfo!!.imageLinks!!.smallThumbnail.toString())
+                                bookThumbnail.add(it.volumeInfo!!.imageLinks!!.thumbnail.toString())
+                                bookDescription.add(it.volumeInfo!!.description.toString())
+                                previewLink.add(it.volumeInfo!!.previewLink.toString())
+                            }
+                            val intent = Intent(this, BookSearchResultRecyclerView::class.java)
+                            intent.putExtra("id", id)
+                            intent.putExtra("bookName", bookName)
+                            intent.putExtra("publisher", bookPublisher)
+                            intent.putExtra("bookSmallThumbnail", bookSmallThumbnail)
+                            intent.putExtra("bookThumbnail", bookThumbnail)
+                            intent.putExtra("bookDescription", bookDescription)
+                            intent.putExtra("previewLink", previewLink)
 
-                        startActivity(intent)
-                        finish()
-                    } else {
-                        Log.d("Response", response.errorBody().toString())
-                    }
-                })
+                            startActivity(intent)
+                            finish()
+                        } else {
+                            Log.d("Response", response.errorBody().toString())
+                        }
+                    })
+                } else {
+                    Toast.makeText(applicationContext, "Title can not be empty", Toast.LENGTH_LONG)
+                        .show()
+                }
             } else {
-                Toast.makeText(applicationContext, "Title can not be empty", Toast.LENGTH_LONG)
+                Toast.makeText(applicationContext, "Please connect to internet", Toast.LENGTH_SHORT)
                     .show()
             }
         }
@@ -103,6 +112,44 @@ class MainActivity : AppCompatActivity() {
         binding.wishlistButton.setOnClickListener {
             val intent = Intent(this, BookWishlistRecyclerView::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun checkInternet(context: Context): Boolean {
+        val connectivityManager =
+            context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        // if the android version is equal to M
+        // or greater we need to use the
+        // NetworkCapabilities to check what type of
+        // network has the internet connection
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+            // Returns a Network object corresponding to
+            // the currently active default data network.
+            val network = connectivityManager.activeNetwork ?: return false
+
+            // Representation of the capabilities of an active network.
+            val activeNetwork =
+                connectivityManager.getNetworkCapabilities(network) ?: return false
+
+            return when {
+                // Indicates this network uses a Wi-Fi transport,
+                // or WiFi has network connectivity
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_WIFI) -> true
+
+                // Indicates this network uses a Cellular transport. or
+                // Cellular has network connectivity
+                activeNetwork.hasTransport(NetworkCapabilities.TRANSPORT_CELLULAR) -> true
+
+                // else return false
+                else -> false
+            }
+        } else {
+            // if the android version is below M
+            @Suppress("DEPRECATION") val networkInfo =
+                connectivityManager.activeNetworkInfo ?: return false
+            @Suppress("DEPRECATION")
+            return networkInfo.isConnected
         }
     }
 }
