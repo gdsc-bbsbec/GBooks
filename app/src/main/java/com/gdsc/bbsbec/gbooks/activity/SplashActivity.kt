@@ -32,6 +32,6 @@ class SplashActivity : AppCompatActivity() {
             val intent = Intent(this@SplashActivity, MainActivity::class.java)
             startActivity(intent)
             finish()  // end the splash activity otherwise it will open up again onBackPressed in MainActivity
-        }, 3000)  // stay on splash for 3 seconds
+        }, 1000)  // stay on splash for 1 second
     }
 }
