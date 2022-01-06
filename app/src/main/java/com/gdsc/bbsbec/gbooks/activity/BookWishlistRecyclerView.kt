@@ -38,6 +38,8 @@ class BookWishlistRecyclerView : AppCompatActivity(), WishlistAdapter.DeleteBook
         binding = ActivityBookWishlistRecyclerViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.title = "Wishlist"
+
         // Recyclerview
         val wishlistAdapter = WishlistAdapter(this)
         binding.bookWishListRecyclerView.adapter = wishlistAdapter

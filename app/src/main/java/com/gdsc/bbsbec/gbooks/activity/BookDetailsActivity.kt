@@ -39,6 +39,8 @@ class BookDetailsActivity : AppCompatActivity() {
         binding = ActivityBookDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.title = "Book Details"
+
         val id: String = intent.getStringExtra("id").toString()
         val bookThumbnail: String = intent.getStringExtra("bookThumbnail").toString()
         val bookName: String = intent.getStringExtra("bookName").toString()

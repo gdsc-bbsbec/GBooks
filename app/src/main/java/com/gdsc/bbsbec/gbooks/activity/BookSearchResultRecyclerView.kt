@@ -34,6 +34,8 @@ class BookSearchResultRecyclerView : AppCompatActivity() {
         binding = ActivityBookSearchResultRecyclerViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.title = "Search Results"
+
         val id: ArrayList<String> =
             intent.getStringArrayListExtra("id") as ArrayList<String>
         val bookName: ArrayList<String> =
