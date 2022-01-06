@@ -74,7 +74,7 @@
         <TextView
             android:id="@+id/publisher_name_text_view"
             android:layout_width="76dp"
-            android:layout_height="33dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="44dp"
             app:layout_constraintStart_toStartOf="parent"
