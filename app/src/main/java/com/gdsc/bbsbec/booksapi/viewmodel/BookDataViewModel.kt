@@ -43,4 +43,10 @@ class BookDataViewModel(application: Application) :
             repository.addBook(book)
         }
     }
+
+    fun deleteBook(book: BookSearchResultData) {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deleteBook(book)
+        }
+    }
 }

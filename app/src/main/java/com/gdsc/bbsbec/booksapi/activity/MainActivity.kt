@@ -40,6 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val id = ArrayList<String>()
         val bookName = ArrayList<String>()
         val bookPublisher = ArrayList<String>()
         val bookSmallThumbnail = ArrayList<String>()
@@ -70,6 +71,7 @@ class MainActivity : AppCompatActivity() {
                 viewModel.myResponse.observe(this, { response ->
                     if (response.isSuccessful) {
                         response.body()!!.items.forEach {
+                            id.add(it.id.toString())
                             bookName.add(it.volumeInfo!!.title.toString())
                             bookPublisher.add(it.volumeInfo!!.publisher.toString())
                             bookSmallThumbnail.add(it.volumeInfo!!.imageLinks!!.smallThumbnail.toString())
@@ -78,6 +80,7 @@ class MainActivity : AppCompatActivity() {
                             previewLink.add(it.volumeInfo!!.previewLink.toString())
                         }
                         val intent = Intent(this, BookSearchResultRecyclerView::class.java)
+                        intent.putExtra("id", id)
                         intent.putExtra("bookName", bookName)
                         intent.putExtra("publisher", bookPublisher)
                         intent.putExtra("bookSmallThumbnail", bookSmallThumbnail)

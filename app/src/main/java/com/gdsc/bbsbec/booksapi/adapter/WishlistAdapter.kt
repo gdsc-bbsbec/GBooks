@@ -24,7 +24,8 @@ import com.gdsc.bbsbec.booksapi.R
 import com.gdsc.bbsbec.booksapi.model.BookSearchResultData
 import kotlinx.android.synthetic.main.book_wishlist_row.view.*
 
-class WishlistAdapter : RecyclerView.Adapter<WishlistAdapter.MyViewHolder>() {
+class WishlistAdapter(private val listener: DeleteBookInterface) :
+    RecyclerView.Adapter<WishlistAdapter.MyViewHolder>() {
 
     private var bookList = emptyList<BookSearchResultData>()
 
@@ -32,15 +33,18 @@ class WishlistAdapter : RecyclerView.Adapter<WishlistAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         return MyViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.book_wishlist_row, parent, false)
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.book_wishlist_row, parent, false)
         )
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = bookList[position]
-        holder.itemView.book_id.text = currentItem.id.toString()
         holder.itemView.book_name.text = currentItem.title
         holder.itemView.book_publisher.text = currentItem.publisher
+        holder.itemView.delete_image_view.setOnClickListener {
+            listener.onClick(bookList[holder.adapterPosition])
+        }
     }
 
     override fun getItemCount(): Int {
@@ -50,5 +54,9 @@ class WishlistAdapter : RecyclerView.Adapter<WishlistAdapter.MyViewHolder>() {
     fun setData(book: List<BookSearchResultData>) {
         this.bookList = book
         notifyDataSetChanged()
+    }
+
+    interface DeleteBookInterface {
+        fun onClick(book: BookSearchResultData)
     }
 }

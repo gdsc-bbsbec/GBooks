@@ -18,9 +18,10 @@ package com.gdsc.bbsbec.booksapi.activity
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import coil.load
 import com.gdsc.bbsbec.booksapi.R
@@ -38,6 +39,7 @@ class BookDetailsActivity : AppCompatActivity() {
         binding = ActivityBookDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val id: String = intent.getStringExtra("id").toString()
         val bookThumbnail: String = intent.getStringExtra("bookThumbnail").toString()
         val bookName: String = intent.getStringExtra("bookName").toString()
         val bookPublisher: String = intent.getStringExtra("bookPublisher").toString()
@@ -57,26 +59,33 @@ class BookDetailsActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.wishlistImageButton.setOnClickListener {
-            if (!binding.wishlistImageButton.equals(R.drawable.ic_filled_star)) {
-                binding.wishlistImageButton.setImageResource(R.drawable.ic_filled_star)
+        val book = BookSearchResultData(
+            id,
+            bookThumbnail,
+            bookName,
+            bookPublisher,
+            bookDescription,
+            previewLink,
+            bookThumbnail
+        )
 
-                val book = BookSearchResultData(
-                    0,
-                    bookThumbnail,
-                    bookName,
-                    bookPublisher,
-                    bookDescription,
-                    previewLink,
-                    bookThumbnail
-                )
-                mBookDataViewModel.addBook(book)
-                Toast.makeText(applicationContext, "Book added to wishlist", Toast.LENGTH_LONG)
-                    .show()
-            } else {
-                Toast.makeText(applicationContext, "Book removed from wishlist", Toast.LENGTH_LONG)
-                    .show()
-            }
+        binding.wishlistImageView.setOnClickListener {
+
+            binding.wishlistImageView.setImageResource(R.drawable.ic_filled_star)
+            binding.deleteImageView.visibility = View.VISIBLE
+
+            mBookDataViewModel.addBook(book)
+            Toast.makeText(applicationContext, "Book added to wishlist", Toast.LENGTH_LONG)
+                .show()
+        }
+
+        binding.deleteImageView.setOnClickListener {
+
+            binding.deleteImageView.visibility = View.GONE
+
+            mBookDataViewModel.deleteBook(book)
+            Toast.makeText(applicationContext, "Book removed from wishlist", Toast.LENGTH_LONG)
+                .show()
         }
     }
 }

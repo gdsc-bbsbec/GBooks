@@ -18,15 +18,17 @@ package com.gdsc.bbsbec.booksapi.activity
 
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gdsc.bbsbec.booksapi.adapter.WishlistAdapter
 import com.gdsc.bbsbec.booksapi.databinding.ActivityBookWishlistRecyclerViewBinding
+import com.gdsc.bbsbec.booksapi.model.BookSearchResultData
 import com.gdsc.bbsbec.booksapi.viewmodel.BookDataViewModel
 
-class BookWishlistRecyclerView : AppCompatActivity() {
+class BookWishlistRecyclerView : AppCompatActivity(), WishlistAdapter.DeleteBookInterface {
 
     private lateinit var binding: ActivityBookWishlistRecyclerViewBinding
     private lateinit var mBookDataViewModel: BookDataViewModel
@@ -37,7 +39,7 @@ class BookWishlistRecyclerView : AppCompatActivity() {
         setContentView(binding.root)
 
         // Recyclerview
-        val wishlistAdapter = WishlistAdapter()
+        val wishlistAdapter = WishlistAdapter(this)
         binding.bookWishListRecyclerView.adapter = wishlistAdapter
         binding.bookWishListRecyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -46,5 +48,11 @@ class BookWishlistRecyclerView : AppCompatActivity() {
         mBookDataViewModel.readAllData.observe(this, Observer { book ->
             wishlistAdapter.setData(book)
         })
+    }
+
+    override fun onClick(book: BookSearchResultData) {
+        mBookDataViewModel.deleteBook(book)
+        Toast.makeText(applicationContext, "Book removed from wishlist", Toast.LENGTH_LONG)
+            .show()
     }
 }

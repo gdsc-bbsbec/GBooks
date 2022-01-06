@@ -27,4 +27,8 @@ class BookRepository(private val bookDao: BookDao) {
     suspend fun addBook(book: BookSearchResultData) {
         bookDao.addBook(book)
     }
+
+    suspend fun deleteBook(book: BookSearchResultData) {
+        bookDao.deleteBook(book)
+    }
 }

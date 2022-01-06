@@ -21,8 +21,8 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "book_data")
 data class BookSearchResultData(
-    @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    @PrimaryKey(autoGenerate = false)
+    val id: String,
     val bookSmallThumbnail: String?,
     val title: String,
     val publisher: String?,

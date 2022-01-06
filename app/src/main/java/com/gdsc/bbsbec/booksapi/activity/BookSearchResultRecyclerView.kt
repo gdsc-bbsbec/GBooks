@@ -17,9 +17,8 @@
 package com.gdsc.bbsbec.booksapi.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.gdsc.bbsbec.booksapi.adapter.BookSearchResultAdapter
 import com.gdsc.bbsbec.booksapi.databinding.ActivityBookSearchResultRecyclerViewBinding
@@ -35,6 +34,8 @@ class BookSearchResultRecyclerView : AppCompatActivity() {
         binding = ActivityBookSearchResultRecyclerViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val id: ArrayList<String> =
+            intent.getStringArrayListExtra("id") as ArrayList<String>
         val bookName: ArrayList<String> =
             intent.getStringArrayListExtra("bookName") as ArrayList<String>
         val bookPublisher: ArrayList<String> =
@@ -52,7 +53,7 @@ class BookSearchResultRecyclerView : AppCompatActivity() {
         repeat(bookName.size - 1) {
             data.add(
                 BookSearchResultData(
-                    pass,
+                    id[pass],
                     bookSmallThumbnail[pass],
                     bookName[pass],
                     bookPublisher[pass],
@@ -64,9 +65,9 @@ class BookSearchResultRecyclerView : AppCompatActivity() {
             pass += 1
         }
 
-
         val bookSearchResultAdapter = BookSearchResultAdapter(data) {
             val intent = Intent(this, BookDetailsActivity::class.java)
+            intent.putExtra("id", it.id)
             intent.putExtra("bookName", it.title)
             intent.putExtra("bookPublisher", it.publisher)
             intent.putExtra("bookDescription", it.bookDescription)
