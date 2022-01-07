@@ -22,7 +22,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -96,7 +95,8 @@ class MainActivity : AppCompatActivity() {
                             startActivity(intent)
                             finish()
                         } else {
-                            Log.d("Response", response.errorBody().toString())
+                            val intent = Intent(this, ServerErrorActivity::class.java)
+                            startActivity(intent)
                         }
                     })
                 } else {

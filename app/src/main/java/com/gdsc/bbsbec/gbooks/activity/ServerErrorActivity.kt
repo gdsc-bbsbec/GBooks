@@ -16,14 +16,24 @@
 
 package com.gdsc.bbsbec.gbooks.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.gdsc.bbsbec.gbooks.R
+import com.gdsc.bbsbec.gbooks.databinding.ActivityServerErrorBinding
 
 class ServerErrorActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityServerErrorBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_server_error)
+        binding = ActivityServerErrorBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.backButton.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
     }
 }
