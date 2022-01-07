@@ -24,4 +24,7 @@
     <string name="preview_book">Preview Book</string>
     <string name="server_error_message">Something went wrong, please go back and search again</string>
     <string name="back_button">Go Back</string>
+    <string name="book_name">Book Name</string>
+    <string name="publisher">Publisher</string>
+    <string name="open_book_wishlist">Open Book Wishlist</string>
 </resources>
