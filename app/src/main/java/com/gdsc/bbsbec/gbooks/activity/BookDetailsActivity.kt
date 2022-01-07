@@ -84,6 +84,7 @@ class BookDetailsActivity : AppCompatActivity() {
         binding.deleteImageView.setOnClickListener {
 
             binding.deleteImageView.visibility = View.GONE
+            binding.wishlistImageView.setImageResource(R.drawable.ic_empty_star)
 
             mBookDataViewModel.deleteBook(book)
             Toast.makeText(applicationContext, "Book removed from wishlist", Toast.LENGTH_LONG)
