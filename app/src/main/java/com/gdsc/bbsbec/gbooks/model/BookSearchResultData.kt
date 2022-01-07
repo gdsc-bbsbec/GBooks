@@ -29,4 +29,5 @@ data class BookSearchResultData(
     val bookDescription: String?,
     val previewLink: String?,
     val bookThumbnail: String?,
+    var isFavourite: Boolean? = false
 )

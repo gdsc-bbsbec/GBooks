@@ -19,7 +19,6 @@ package com.gdsc.bbsbec.gbooks.activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -47,6 +46,7 @@ class BookDetailsActivity : AppCompatActivity() {
         val bookPublisher: String = intent.getStringExtra("bookPublisher").toString()
         val bookDescription: String = intent.getStringExtra("bookDescription").toString()
         val previewLink: String = intent.getStringExtra("previewLink").toString()
+        val isFavourite = false
 
         binding.bookName.text = bookName
         binding.publisherNameTextView.text = bookPublisher
@@ -68,27 +68,29 @@ class BookDetailsActivity : AppCompatActivity() {
             bookPublisher,
             bookDescription,
             previewLink,
-            bookThumbnail
+            bookThumbnail,
+            isFavourite
         )
 
         binding.wishlistImageView.setOnClickListener {
 
-            binding.wishlistImageView.setImageResource(R.drawable.ic_filled_star)
-            binding.deleteImageView.visibility = View.VISIBLE
+            if (book.isFavourite == true) {
 
-            mBookDataViewModel.addBook(book)
-            Toast.makeText(applicationContext, "Book added to wishlist", Toast.LENGTH_LONG)
-                .show()
-        }
+                binding.wishlistImageView.setImageResource(R.drawable.ic_empty_star)
+                mBookDataViewModel.deleteBook(book)
+                book.isFavourite = false
 
-        binding.deleteImageView.setOnClickListener {
+                Toast.makeText(applicationContext, "Book removed from wishlist", Toast.LENGTH_LONG)
+                    .show()
+            } else {
 
-            binding.deleteImageView.visibility = View.GONE
-            binding.wishlistImageView.setImageResource(R.drawable.ic_empty_star)
+                binding.wishlistImageView.setImageResource(R.drawable.ic_filled_star)
+                mBookDataViewModel.addBook(book)
+                book.isFavourite = true
 
-            mBookDataViewModel.deleteBook(book)
-            Toast.makeText(applicationContext, "Book removed from wishlist", Toast.LENGTH_LONG)
-                .show()
+                Toast.makeText(applicationContext, "Book added to wishlist", Toast.LENGTH_LONG)
+                    .show()
+            }
         }
     }
 }
