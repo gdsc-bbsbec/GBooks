@@ -27,14 +27,15 @@
 
         <TextView
             android:id="@+id/book_name"
-            android:layout_width="wrap_content"
-            android:layout_height="41dp"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="22dp"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             app:layout_constraintBottom_toTopOf="@+id/book_thumbnail"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.153" />
 
         <ImageView
             android:id="@+id/wishlist_image_view"
@@ -73,7 +74,7 @@
 
         <TextView
             android:id="@+id/publisher_name_text_view"
-            android:layout_width="76dp"
+            android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginTop="44dp"
@@ -84,11 +85,12 @@
             android:id="@+id/preview_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="152dp"
+            android:layout_marginEnd="32dp"
             android:layout_marginTop="36dp"
+            android:layout_marginStart="8dp"
             android:text="@string/preview_book"
             android:textAllCaps="false"
-            app:layout_constraintStart_toEndOf="@id/publisher_name_text_view"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/book_thumbnail" />
 
         <TextView

@@ -56,7 +56,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/search_book_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.588"
+        app:layout_constraintHorizontal_bias="0.864"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_book_text_input" />
 
@@ -64,10 +64,12 @@
         android:id="@+id/wishlist_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:text="Open book Wishlist"
+        android:layout_marginStart="192dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/open_book_wishlist"
         android:textAllCaps="false"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/search_button"
         app:layout_constraintTop_toBottomOf="@id/search_button" />
 
     <TextView

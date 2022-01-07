@@ -22,4 +22,6 @@
     <string name="search_book">Enter book title</string>
     <string name="search_book_button">Search</string>
     <string name="preview_book">Preview Book</string>
+    <string name="book_name">Book Name</string>
+    <string name="publisher">Publisher</string>
 </resources>
