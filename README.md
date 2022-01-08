@@ -41,6 +41,6 @@ The App has a very simple and interactive interface which helps the students sea
 
 ## **Application Link & Future Scope**
 
-The app is currently in the Alpha testing phase with BBSBEC campus with a limited no. of users. You can access the pre-release of our app from releases section.
+The app is currently in the Alpha testing phase with BBSBEC campus with a limited no. of users. You can access the pre-release of our app from [releases](https://github.com/gdsc-bbsbec/GBooks/releases/) section.
 
 Once the app is fully tested and functional in BBSBEC campus, we plan to talk to neighboring colleges also to propose this app idea and collaborate with them on this app. Also we are planning to host a github repository for wildcard entries of the eBooks, notes, study materials, magazines by teachers and students and the app will include the search results from that repo as well.
