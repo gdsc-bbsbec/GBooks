@@ -19,9 +19,5 @@ package com.gdsc.bbsbec.gbooks.utils
 class Constants {
     companion object {
         const val BASE_URL = "https://www.googleapis.com/books/v1/volumes/"
-
-        // Generate one Google API after enabling Google Books API from below
-        // https://console.cloud.google.com/marketplace/product/google/books.googleapis.com
-        const val API_KEY = "Google Books API"
     }
 }

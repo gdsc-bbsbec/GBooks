@@ -25,9 +25,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.gdsc.bbsbec.gbooks.BuildConfig
 import com.gdsc.bbsbec.gbooks.databinding.ActivityMainBinding
 import com.gdsc.bbsbec.gbooks.repository.Repository
-import com.gdsc.bbsbec.gbooks.utils.Constants.Companion.API_KEY
 import com.gdsc.bbsbec.gbooks.viewmodel.MainViewModel
 import com.gdsc.bbsbec.gbooks.viewmodel.MainViewModelFactory
 import java.util.*
@@ -43,6 +43,7 @@ class MainActivity : AppCompatActivity() {
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+//        val API_KEY: String = getenv("API_KEY")!!.toString()
         val id = ArrayList<String>()
         val bookName = ArrayList<String>()
         val bookPublisher = ArrayList<String>()
@@ -71,7 +72,7 @@ class MainActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG
                     ).show()
 
-                    viewModel.getBooks(title, API_KEY)
+                    viewModel.getBooks(title, BuildConfig.API_KEY)
                     viewModel.myResponse.observe(this, { response ->
                         if (response.isSuccessful) {
                             response.body()!!.items.forEach {
