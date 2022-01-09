@@ -6,6 +6,8 @@
 
 <p> A simple android app written in Kotlin to read books from the <a href="https://developers.google.com/books/docs/overview">Google Book Api</a>.<br></p>
 
+<a href="https://github.com/gdsc-bbsbec/gbooks/actions/workflows/android.yml"><img src="https://github.com/gdsc-bbsbec/gbooks/actions/workflows/android.yml/badge.svg" alt="Github Actions Status"></a>
+
 ---
 
 </div>
